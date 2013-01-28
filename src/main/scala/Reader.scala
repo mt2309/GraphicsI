@@ -1,6 +1,5 @@
-package PFMReader
-
 import java.io.{FileInputStream, File}
+import Conversions._
 
 /**
  * User: mthorpe
@@ -9,23 +8,21 @@ import java.io.{FileInputStream, File}
  */
 
 class HDRPixel(r:Float,g:Float,b:Float)
+class Image(val image:Array[HDRPixel])
+
 
 class Reader(file:File) {
 
   val in = new FileInputStream(file)
-
   val fileType:String = getNextElem()
-
-  assert(fileType == "PF")
 
   val xDim:Int = this.getNextElem().toInt
   val yDim:Int = this.getNextElem().toInt
 
-  assert(xDim > 0); assert(yDim > 0)
+  assert(xDim > 0); assert(yDim > 0); assert(fileType == "PF")
 
   val endian:Float = this.getNextElem().toFloat
-
-  val image:Array[Float] = this.getImage()
+  val image:Image = this.getImage()
 
   def getNextElem():String = {
     val builder = new StringBuilder
@@ -44,12 +41,11 @@ class Reader(file:File) {
     builder.toString()
   }
 
-  def getImage():Array[Float] = {
-    val img = new Array[Float](xDim*yDim*3)
+  def getImage():Image = {
+    val img = new Image(new Array[HDRPixel](xDim*yDim))
 
-    for (x <- 0 to ((xDim*yDim*3) -1 )) {
-      img(x) = in.read().toFloat
-    }
+    for (x <- 0 to ((xDim*yDim) -1 ))
+      img(x) = new HDRPixel(in.read().toFloat,in.read().toFloat,in.read().toFloat)
 
     img
   }
