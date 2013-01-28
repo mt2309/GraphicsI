@@ -1,5 +1,5 @@
 import java.io.{FilenameFilter, File}
-import PFMReader.Reader
+import Conversions._
 
 /**
  * User: mthorpe
@@ -8,15 +8,23 @@ import PFMReader.Reader
  */
 object Main extends App {
 
-  assert(args.length > 0)
+  val help = "Argument 1: directory containing .pfm files of the same resolution"
 
-  val files:Set[File] = getFiles(new File(args(0)))
-  val images = files map(x => (new Reader(x)).image)
+  assert(args.length > 0,help)
 
-  def getFiles(directory:File):Set[File] = {
-    directory.listFiles(new FilenameFilter {
+  val files = getFiles(new File(args(0))) map(x => (new Reader(x)).image)
+
+  assert(files.length > 0, help)
+
+  // check the files are the same resolution
+  files foreach(x => assert(x.length == files(0).length,"Image is not the correct resolution, " ++ help))
+
+
+
+  def getFiles(directory:File):Array[File] = {
+    directory listFiles(new FilenameFilter {
       def accept(dir: File, name: String) = (name.endsWith(".pfm") || name.endsWith(".PFM"))
-    }).toSet
+    })
   }
 
 }
