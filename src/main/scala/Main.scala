@@ -1,4 +1,7 @@
+import collection.mutable.HashSet
+import java.io.{FilenameFilter, File}
 import PFMReader.Reader
+import util.matching.Regex
 
 /**
  * User: mthorpe
@@ -6,5 +9,16 @@ import PFMReader.Reader
  * Time: 14:49
  */
 object Main extends App {
-  val file = new Reader(args(0))
+
+  assert(args.length > 0)
+
+  val files:Set[File] = getFiles(new File(args(0)))
+  val images = files map(x => (new Reader(x)).image)
+
+  def getFiles(directory:File):Set[File] = {
+    directory.listFiles(new FilenameFilter {
+      def accept(dir: File, name: String) = name.endsWith(".pfm")
+    }).toSet
+  }
+
 }

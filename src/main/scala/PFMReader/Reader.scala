@@ -10,9 +10,8 @@ import java.io.{FileInputStream, File}
 
 class HDRPixel(r:Float,g:Float,b:Float)
 
-class Reader(fileName:String) {
+class Reader(file:File) {
 
-  val file = new File(fileName)
   val in = new FileInputStream(file)
 
   val fileType:String = getNextElem()
@@ -32,6 +31,7 @@ class Reader(fileName:String) {
     val builder = new StringBuilder
     var currentByte:Int = Int.MinValue
 
+    // lol
     while (true) {
       currentByte = in.read()
       if (!currentByte.toChar.isWhitespace) {
