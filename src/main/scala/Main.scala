@@ -1,7 +1,5 @@
-import collection.mutable.HashSet
 import java.io.{FilenameFilter, File}
 import PFMReader.Reader
-import util.matching.Regex
 
 /**
  * User: mthorpe
@@ -17,7 +15,7 @@ object Main extends App {
 
   def getFiles(directory:File):Set[File] = {
     directory.listFiles(new FilenameFilter {
-      def accept(dir: File, name: String) = name.endsWith(".pfm")
+      def accept(dir: File, name: String) = (name.endsWith(".pfm") || name.endsWith(".PFM"))
     }).toSet
   }
 
