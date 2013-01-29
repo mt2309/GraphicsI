@@ -17,7 +17,8 @@ object Main extends App {
   assert(files.length > 0, help)
 
   // check the files are the same resolution
-  files foreach(x => assert(x.length == files(0).length,"Image is not the correct resolution, " ++ help))
+  files foreach(x => assert(x.length == files(0).length &&
+    (x(0).length == files(0)(0).length),"Image is not the correct resolution, " ++ help))
 
 
 
