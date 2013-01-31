@@ -8,7 +8,7 @@ import runtime.RichFloat
  * Time: 14:58
  */
 
-class Reader(file:File) {
+final class Reader(file:File) {
 
   val in = new FileInputStream(file)
   val fileType:String = getNextElem()
@@ -45,7 +45,7 @@ class Reader(file:File) {
 
     for (x <- 0 to xDim - 1)
       for (y <- 0 to yDim - 1)
-        img(x)(y) = new HDRPixel(in.read().toFloat,in.read().toFloat,in.read().toFloat)
+        img(x)(y) = new HDRPixel(in.read().toDouble,in.read().toDouble,in.read().toDouble)
 
     img
   }

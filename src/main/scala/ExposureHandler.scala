@@ -11,5 +11,6 @@ final class ExposureHandler(private val images:Array[Image]) {
 
 
 
-  def minimize(img:Image,i:Int):Image= new Image(img.image.map(arr => arr.map(px => px/(Math.pow(4,i.toDouble)))))
+  @inline def minimize(img:Image,i:Int):Image= new Image(img.image.map(arr => arr.map(px => px/(Math.pow(4,i.toDouble)))))
+
 }

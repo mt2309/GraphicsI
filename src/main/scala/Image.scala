@@ -4,11 +4,14 @@
  * Time: 00:37
  */
 
-class HDRPixel(val r:Float,val g:Float,val b:Float)
-class Image(val image:Array[Array[HDRPixel]]) {
+final class HDRPixel(val r:Double,val g:Double,val b:Double) {
+  def /(x:Double):HDRPixel = new HDRPixel(r/x,g/x,b/x)
+}
+
+final class Image(val image:Array[Array[HDRPixel]]) {
 
   def this(x:Int,y:Int) = this(Array.ofDim[HDRPixel](x,y))
 
-  val xDim = image.length
-  val yDim = image(0).length
+  @inline val xDim = image.length
+  @inline val yDim = if (xDim > 0) image(0).length
 }
