@@ -12,14 +12,16 @@ object Main extends App {
 
   assert(args.length > 0,help)
 
-  val files = getFiles(new File(args(0))) map(x => (new Reader(x)).image)
+  val images = getFiles(new File(args(0))) map(x => (new Reader(x)).image)
 
-  assert(files.length > 0, help)
+  assert(images.length > 0, help)
 
   // check the files are the same resolution
-  files foreach(x => assert(x.length == files(0).length &&
-    (x(0).length == files(0)(0).length),"Image is not the correct resolution, " ++ help))
+  images foreach(x => assert(x.length == images(0).length &&
+    (x(0).length == images(0)(0).length),"Image is not the correct resolution, " ++ help))
 
+
+  val exposures = (new ExposureHandler(images))
 
 
   def getFiles(directory:File):Array[File] = {
@@ -27,5 +29,4 @@ object Main extends App {
       def accept(dir: File, name: String) = (name.endsWith(".pfm") || name.endsWith(".PFM"))
     })
   }
-
 }
