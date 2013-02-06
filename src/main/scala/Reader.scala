@@ -1,4 +1,4 @@
-import java.io.{FileInputStream, File}
+import java.io.{DataInputStream, FileInputStream, File}
 import Conversions._
 import runtime.RichFloat
 
@@ -11,6 +11,7 @@ import runtime.RichFloat
 final class Reader(file:File) {
 
   val in = new FileInputStream(file)
+  val dat = new DataInputStream(in)
   val fileType:String = getNextElem()
 
   val xDim:Int = this.getNextElem().toInt
@@ -21,7 +22,7 @@ final class Reader(file:File) {
   val endian:Float = this.getNextElem().toFloat
   val image:Image = this.getImage()
 
-  in.close()
+  dat.close()
 
   def getNextElem():String = {
     val builder = new StringBuilder
@@ -29,7 +30,7 @@ final class Reader(file:File) {
 
     // lol
     while (true) {
-      currentByte = in.read()
+      currentByte = dat.read()
       if (!currentByte.toChar.isWhitespace) {
         builder.append(currentByte.toChar)
       }
@@ -45,7 +46,7 @@ final class Reader(file:File) {
 
     for (x <- 0 to xDim - 1)
       for (y <- 0 to yDim - 1)
-        img(x)(y) = new HDRPixel(in.read().toDouble,in.read().toDouble,in.read().toDouble)
+        img(x)(y) = new HDRPixel(dat.readFloat().toDouble,dat.readFloat().toDouble,dat.readFloat().toDouble)
 
     img
   }
