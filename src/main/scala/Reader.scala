@@ -1,5 +1,6 @@
 import java.io.{DataInputStream, FileInputStream, File}
 import Conversions._
+import java.nio.{ByteBuffer, ByteOrder}
 import runtime.RichFloat
 
 /**
@@ -46,8 +47,23 @@ final class Reader(file:File) {
 
     for (x <- 0 to xDim - 1)
       for (y <- 0 to yDim - 1)
-        img(x)(y) = new HDRPixel(dat.readFloat().toDouble,dat.readFloat().toDouble,dat.readFloat().toDouble)
+        img(x)(y) = new HDRPixel(switchEndian(dat.readFloat()),switchEndian(dat.readFloat()),switchEndian(dat.readFloat()))
 
     img
+  }
+
+  @inline
+  def switchEndian(f:Float):Float = ByteBuffer.wrap(floatToByteArray(f)).order(ByteOrder.BIG_ENDIAN).getFloat()
+
+  @inline
+  def floatToByteArray(f:Float):Array[Byte] = {
+    val bits = java.lang.Float.floatToIntBits(f)
+    val bytes:Array[Byte] = new Array[Byte](4)
+    bytes(0) = (bits & 0xff).toByte
+    bytes(1) = ((bits >> 8) & 0xff).toByte
+    bytes(2) = ((bits >> 16) & 0xff).toByte
+    bytes(3) = ((bits >> 24) & 0xff).toByte
+
+    bytes
   }
 }
