@@ -52,11 +52,9 @@ final class Reader(file:File) {
     img
   }
 
-  @inline
-  def switchEndian(f:Float):Float = ByteBuffer.wrap(floatToByteArray(f)).order(ByteOrder.BIG_ENDIAN).getFloat()
+  @inline def switchEndian(f:Float):Float = ByteBuffer.wrap(floatToByteArray(f)).order(ByteOrder.BIG_ENDIAN).getFloat()
 
-  @inline
-  def floatToByteArray(f:Float):Array[Byte] = {
+  @inline def floatToByteArray(f:Float):Array[Byte] = {
     val bits = java.lang.Float.floatToIntBits(f)
     val bytes:Array[Byte] = new Array[Byte](4)
     bytes(0) = (bits & 0xff).toByte
