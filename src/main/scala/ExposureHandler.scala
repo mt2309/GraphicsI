@@ -21,16 +21,16 @@ final class ExposureHandler(private val images:Array[Image]) {
 object ExposureHandler {
 
   @inline private def E_i(idx:Int):Double = Math.pow(4,idx.toDouble)
-  @inline private def centerWeight(z:HDRPixel):HDRPixel = (z.pow(4.0) * 16) - (z.pow(3) * 32) + (z.pow(2) * 16)
+  @inline private def centerWeight(z:Pixel):Pixel = (z.pow(4.0) * 16) - (z.pow(3) * 32) + (z.pow(2) * 16)
 
   @inline def minimize(img:Image,i:Int):Image= new Image(img.image.map(arr => arr.map(px => px/E_i(i))))
 
   //  F(x,y) = exp( SUM_over_i( log((1/Ei) * i) * w(i)) / SUM(w(i)))
 
-  def weightedAverage(x:Array[HDRPixel]):HDRPixel = {
+  def weightedAverage(x:Array[Pixel]):Pixel = {
 
-    val topHalf = x.zipWithIndex.map{case (img,idx) => (img * Math.log(1.0/E_i(idx)) * centerWeight(img))}.map(_.normalise).fold(new HDRPixel)(_ + _)
-    val bottomHalf = x.map(centerWeight(_)).fold(new HDRPixel)(_ + _)
+    val topHalf = x.zipWithIndex.map{case (img,idx) => (img * Math.log(1.0/E_i(idx)) * centerWeight(img))}.map(_.normalise).fold(new Pixel)(_ + _)
+    val bottomHalf = x.map(centerWeight(_)).fold(new Pixel)(_ + _)
 
     (topHalf/bottomHalf).exp
   }

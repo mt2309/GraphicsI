@@ -43,11 +43,11 @@ final class Reader(file:File) {
   }
 
   def getImage():Image = {
-    val img = new Image(Array.ofDim[HDRPixel](xDim,yDim))
+    val img = new Image(Array.ofDim[Pixel](xDim,yDim))
 
     for (x <- 0 to xDim - 1)
       for (y <- 0 to yDim - 1)
-        img(x)(y) = new HDRPixel(switchEndian(dat.readFloat()),switchEndian(dat.readFloat()),switchEndian(dat.readFloat()))
+        img(x)(y) = new Pixel(switchEndian(dat.readFloat()),switchEndian(dat.readFloat()),switchEndian(dat.readFloat()))
 
     img
   }
