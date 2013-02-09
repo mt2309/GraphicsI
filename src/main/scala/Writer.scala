@@ -5,9 +5,9 @@ import java.io.{FileOutputStream, DataOutputStream}
  * Date: 09/02/2013
  * Time: 03:07
  */
-final class Writer(img:Image) {
+final class Writer(img:Image,fileName:String) {
 
-  val outFile = new FileOutputStream("output.pfm")
+  val outFile = new FileOutputStream(fileName)
   val dat = new DataOutputStream(outFile)
 
   writeInitialHeader
@@ -19,7 +19,6 @@ final class Writer(img:Image) {
     dat.writeBytes("-1.000000\n")
   }
 
-  def writeFloats {
-    img.foreach{x => dat.writeFloat(x.r.toFloat); dat.writeFloat(x.g.toFloat); dat.writeFloat(x.b.toFloat)}
+  def writeFloats:Unit = img.foreach{x => dat.writeFloat(x.r.toFloat); dat.writeFloat(x.g.toFloat); dat.writeFloat(x.b.toFloat)
   }
 }

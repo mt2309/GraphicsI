@@ -21,7 +21,7 @@ object Main extends App {
     (x(0).length == images(0)(0).length),"Image is not the correct resolution, " ++ help))
 
 
-  val exposures = new Writer((new ExposureHandler(images)).reduced)
+  val exposures = new Writer((new ExposureHandler(images)).reduced,"f.pfm")
 
   def getFiles(directory:File):Array[File] = {
     directory listFiles(new FilenameFilter {
