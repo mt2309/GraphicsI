@@ -15,7 +15,7 @@ final class ExposureHandler(private val images:Array[Image]) {
       reduced(x)(y) = ExposureHandler.weightedAverage(images.map(_.apply(x)(y)))
   }
 
-
+//  reduced.foreach(println(_))
 }
 
 object ExposureHandler {
@@ -29,9 +29,9 @@ object ExposureHandler {
 
   def weightedAverage(x:Array[Pixel]):Pixel = {
 
-    val topHalf = x.zipWithIndex.map{case (img,idx) => (img * Math.log(1.0/E_i(idx)) * centerWeight(img))}.map(_.normalise).fold(new Pixel)(_ + _)
-    val bottomHalf = x.map(centerWeight(_)).fold(new Pixel)(_ + _)
+    val topHalf = x.zipWithIndex.map{case (img,idx) => (img * Math.log(1.0/E_i(idx)) * centerWeight(img).normalise)}.fold(new Pixel)(_ + _)
+    val bottomHalf = x.map(centerWeight(_).normalise).fold(new Pixel)(_ + _)
 
-    (topHalf/bottomHalf).exp
+    (topHalf/bottomHalf).exp.NaN
   }
 }

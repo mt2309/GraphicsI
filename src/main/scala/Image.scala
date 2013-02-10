@@ -22,6 +22,8 @@ final class Pixel(val r:Double,val g:Double,val b:Double) {
   def exp = new Pixel(Math.exp(r), Math.exp(g), Math.exp(b))
 
   def normalise:Pixel = new Pixel(Pixel.norm(this.r), Pixel.norm(this.g), Pixel.norm(this.b))
+
+  def NaN:Pixel = new Pixel(Pixel.NaN(this.r), Pixel.NaN(this.g), Pixel.NaN(this.b))
 }
 
 object Pixel {
@@ -30,6 +32,8 @@ object Pixel {
     else if (d > 0.92) 0
     else d
   }
+
+  private def NaN(d:Double):Double = if (d.isNaN) 1.0 else d
 }
 
 final class Image(val image:Array[Array[Pixel]]) {
