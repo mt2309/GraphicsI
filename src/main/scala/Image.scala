@@ -43,5 +43,7 @@ final class Image(val image:Array[Array[Pixel]]) {
   @inline val xDim = image.length
   @inline val yDim = if (xDim > 0) image(0).length else 0
 
-  def foreach[U](f: Pixel => U):Unit = this.image.foreach(_.foreach(f(_)))
+  def foreach[U](f: Pixel => U) {
+    this.image.foreach(_.foreach(f(_)))
+  }
 }

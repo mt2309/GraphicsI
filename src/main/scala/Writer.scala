@@ -19,6 +19,9 @@ final class Writer(img:Image,fileName:String) {
     dat.writeBytes("-1.000000\n")
   }
 
-  def writeFloats() = img.foreach{x => dat.writeFloat(x.r.toFloat); dat.writeFloat(x.g.toFloat); dat.writeFloat(x.b.toFloat)
+  def writeFloats() {
+    img.foreach {
+      x => dat.writeFloat(x.r.toFloat); dat.writeFloat(x.g.toFloat); dat.writeFloat(x.b.toFloat)
+    }
   }
 }

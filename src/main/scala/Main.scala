@@ -13,8 +13,8 @@ object Main extends App {
   assert(args.length > 1,help)
 
   args(0) match {
-    case "assemble" | "HDR" | "hdr" | "1" | "one" => hdr
-    case "lighting" | "image-based-lighting" | "2" | "two" => lighting
+    case "assemble" | "HDR" | "hdr" | "1" | "one" => hdr()
+    case "lighting" | "image-based-lighting" | "2" | "two" => lighting()
     case _ => {println(help); sys.exit(1)}
   }
 
@@ -32,7 +32,7 @@ object Main extends App {
   }
 
   private def lighting() {
-    val image = new Reader(new File(args(1)))
+    val image = new Lighting(new Reader(new File(args(1))).image)
   }
 
 

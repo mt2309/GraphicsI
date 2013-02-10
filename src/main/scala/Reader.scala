@@ -13,19 +13,19 @@ final class Reader(file:File) {
 
   val in = new FileInputStream(file)
   val dat = new DataInputStream(in)
-  val fileType:String = getNextElem()
+  val fileType:String = getNextElem
 
-  val xDim:Int = this.getNextElem().toInt
-  val yDim:Int = this.getNextElem().toInt
+  val xDim:Int = this.getNextElem.toInt
+  val yDim:Int = this.getNextElem.toInt
 
   assert(xDim > 0); assert(yDim > 0); assert(fileType == "PF")
 
-  val endian:Float = this.getNextElem().toFloat
-  val image:Image = this.getImage()
+  val endian:Float = this.getNextElem.toFloat
+  val image:Image = this.getImage
 
   dat.close()
 
-  def getNextElem():String = {
+  def getNextElem:String = {
     val builder = new StringBuilder
     var currentByte:Int = Int.MinValue
 
@@ -42,7 +42,7 @@ final class Reader(file:File) {
     builder.toString()
   }
 
-  def getImage():Image = {
+  def getImage:Image = {
     val img = new Image(Array.ofDim[Pixel](xDim,yDim))
 
     for (x <- 0 to xDim - 1)
@@ -52,7 +52,7 @@ final class Reader(file:File) {
     img
   }
 
-  @inline def switchEndian(f:Float):Float = ByteBuffer.wrap(floatToByteArray(f)).order(ByteOrder.BIG_ENDIAN).getFloat()
+  @inline def switchEndian(f:Float):Float = ByteBuffer.wrap(floatToByteArray(f)).order(ByteOrder.BIG_ENDIAN).getFloat
 
   @inline def floatToByteArray(f:Float):Array[Byte] = {
     val bits = java.lang.Float.floatToIntBits(f)
