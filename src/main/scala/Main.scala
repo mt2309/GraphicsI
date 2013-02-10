@@ -10,12 +10,14 @@ object Main extends App {
 
   val help = "Argument 1: mode, Argument 1: directory containing .pfm files of the same resolution"
 
-  assert(args.length > 1,help)
+  assert(args.length > 1, help)
 
   args(0) match {
     case "assemble" | "HDR" | "hdr" | "1" | "one" => hdr()
     case "lighting" | "image-based-lighting" | "2" | "two" => lighting()
-    case _ => {println(help); sys.exit(1)}
+    case _ => {
+      println(help); sys.exit(1)
+    }
   }
 
   private def hdr() {
@@ -36,8 +38,8 @@ object Main extends App {
   }
 
 
-  def getFiles(directory:File):Array[File] = {
-    directory listFiles(new FilenameFilter {
+  def getFiles(directory: File): Array[File] = {
+    directory listFiles (new FilenameFilter {
       def accept(dir: File, name: String) = (name.endsWith(".pfm") || name.endsWith(".PFM"))
     })
   }

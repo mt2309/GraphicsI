@@ -4,5 +4,5 @@
  * Time: 23:46
  */
 object Conversions {
-  implicit def image2Array(x:Image):Array[Array[Pixel]] = x.image
+  implicit def image2Array(x: Image): Array[Array[Pixel]] = x.image
 }

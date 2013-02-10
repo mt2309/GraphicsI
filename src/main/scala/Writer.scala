@@ -5,7 +5,7 @@ import java.io.{FileOutputStream, DataOutputStream}
  * Date: 09/02/2013
  * Time: 03:07
  */
-final class Writer(img:Image,fileName:String) {
+final class Writer(img: Image, fileName: String) {
 
   val outFile = new FileOutputStream(fileName)
   val dat = new DataOutputStream(outFile)
@@ -15,7 +15,10 @@ final class Writer(img:Image,fileName:String) {
 
   def writeInitialHeader() {
     dat.writeBytes("PF\n")
-    dat.writeBytes(img.xDim.toString); dat.writeBytes(" "); dat.writeBytes(img.yDim.toString); dat.writeBytes("\n")
+    dat.writeBytes(img.xDim.toString);
+    dat.writeBytes(" ");
+    dat.writeBytes(img.yDim.toString);
+    dat.writeBytes("\n")
     dat.writeBytes("-1.000000\n")
   }
 
