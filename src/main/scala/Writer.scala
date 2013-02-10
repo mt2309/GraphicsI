@@ -10,15 +10,15 @@ final class Writer(img:Image,fileName:String) {
   val outFile = new FileOutputStream(fileName)
   val dat = new DataOutputStream(outFile)
 
-  writeInitialHeader
-  writeFloats
+  writeInitialHeader()
+  writeFloats()
 
-  def writeInitialHeader {
+  def writeInitialHeader() {
     dat.writeBytes("PF\n")
     dat.writeBytes(img.xDim.toString); dat.writeBytes(" "); dat.writeBytes(img.yDim.toString); dat.writeBytes("\n")
     dat.writeBytes("-1.000000\n")
   }
 
-  def writeFloats:Unit = img.foreach{x => dat.writeFloat(x.r.toFloat); dat.writeFloat(x.g.toFloat); dat.writeFloat(x.b.toFloat)
+  def writeFloats() = img.foreach{x => dat.writeFloat(x.r.toFloat); dat.writeFloat(x.g.toFloat); dat.writeFloat(x.b.toFloat)
   }
 }

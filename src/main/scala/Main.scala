@@ -18,7 +18,7 @@ object Main extends App {
     case _ => {println(help); sys.exit(1)}
   }
 
-  private def hdr {
+  private def hdr() {
     val images = getFiles(new File(args(1))) map (x => (new Reader(x)).image)
 
     assert(images.length > 0, help)
@@ -31,7 +31,7 @@ object Main extends App {
     new Writer((new ExposureHandler(images)).reduced, "f.pfm")
   }
 
-  private def lighting {
+  private def lighting() {
     val image = new Reader(new File(args(1)))
   }
 
