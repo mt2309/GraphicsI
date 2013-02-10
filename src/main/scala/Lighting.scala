@@ -13,7 +13,7 @@ final class Lighting(image:Image) {
 
 
 
-  private def inCircle(x:Int,y:Int):Boolean = Math.pow(x - center,2) + Math.pow(y - center,2) < Math.pow(radius,2)
+  private def inCircle(x:Int,y:Int):Boolean = math.pow(x - center,2) + math.pow(y - center,2) < math.pow(radius,2)
 
 
 

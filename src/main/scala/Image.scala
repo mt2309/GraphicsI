@@ -18,8 +18,8 @@ final class Pixel(val r:Double,val g:Double,val b:Double) {
   def +(that:Pixel):Pixel = new Pixel(this.r + that.r, this.g + that.g, this.b + that.b)
   def -(that:Pixel) = new Pixel(this.r - that.r, this.g - that.g, this.b - that.b)
 
-  def pow(x:Double) = new Pixel(Math.pow(r,x),Math.pow(g,x),Math.pow(b,x))
-  def exp = new Pixel(Math.exp(r), Math.exp(g), Math.exp(b))
+  def pow(x:Double) = new Pixel(math.pow(r,x),math.pow(g,x),math.pow(b,x))
+  def exp = new Pixel(math.exp(r), math.exp(g), math.exp(b))
 
   def normalise:Pixel = new Pixel(Pixel.norm(this.r), Pixel.norm(this.g), Pixel.norm(this.b))
 
